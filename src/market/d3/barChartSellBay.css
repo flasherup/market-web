@@ -1,0 +1,18 @@
+.sell-bay {
+    background-color:rgb(229, 229, 229)
+}
+.sell-bay .max-price {
+    fill: rgb(180, 169, 70);
+}
+
+.sell-bay .min-price {
+    fill: rgb(180, 114, 70);
+}
+
+.sell-bay .sum_bay_amount {
+    fill: rgb(43, 135, 0);
+}
+
+.sell-bay .sum_sell_amount {
+    fill: rgb(150, 1, 1);
+}
