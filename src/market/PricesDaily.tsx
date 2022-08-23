@@ -37,7 +37,6 @@ function PricesDaily() {
     if (marketData && marketData.length) {
       barChart = new LineChartPrices(reference.current);
       const avg = toGraphData(marketData);
-      console.log("avg", avg);
       barChart.initialize(avg);
     }
     return () => {
@@ -50,7 +49,7 @@ function PricesDaily() {
   return (
     <Row>
       <Col>
-        <svg ref={reference} width="100%" height="300" />
+        <svg ref={reference} width="100%" height="150" />
       </Col>
     </Row>
   );

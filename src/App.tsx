@@ -19,11 +19,13 @@ function App() {
             <PricesDaily />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <SelectedDay />
-          </Col>
-        </Row>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Row>
+            <Col>
+              <SelectedDay />
+            </Col>
+          </Row>
+        </React.Suspense>
       </Container>
     </RecoilRoot>
   );

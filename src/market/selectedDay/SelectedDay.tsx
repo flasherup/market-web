@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { marketSelectedDay } from "../../recoil/market";
 import PricesHourly from "./PricesHourly";
 import SellBayHourly from "./SellBayHourly";
+import {dateToString} from "../../utils/time";
 
 function SelectedDay() {
   const [selected, setSelected] = useRecoilState(marketSelectedDay);
@@ -12,7 +13,7 @@ function SelectedDay() {
       <Col>
         <Row>
           <Col>
-            Selected day {selected.toISOString()}
+            Selected day {dateToString(selected)}
           </Col>
         </Row>
         <Row>

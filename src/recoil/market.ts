@@ -3,6 +3,7 @@ import {
     selector,
 } from 'recoil';
 import axios from "axios";
+import {dateToString} from "../utils/time"
 
 export type SellBayState = {
     max_price: number
@@ -46,6 +47,9 @@ export const fetchSellBay = selector({
     },
 });
 
+//const defaultDate = new Date();
+//defaultDate.setDate(defaultDate.getDate()-1)
+
 export const marketSelectedDay = atom({
     key: "marketSelectedDay",
     default: new Date()
@@ -70,8 +74,4 @@ const getSellBayUrl = function(start: Date, end: Date, breakdown: string): strin
     const s = dateToString(start);
     const e = dateToString(end);
    return `${endpoint}/market/sell-bay?start=${s}&end=${e}&breakdown=${breakdown}`
-}
-
-const dateToString = function(date:Date): string {
-    return date.toISOString().substring(0, 10);
 }
