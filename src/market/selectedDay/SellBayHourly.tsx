@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import {useRecoilValue} from 'recoil';
-import BarChartSellBay from "./d3/BarChartSellBay";
-import {SellBayState, fetchSellBay} from "../recoil/market";
+import BarChartSellBay from "../d3/BarChartSellBay";
+import {SellBayState, fetchSellBayForDay} from "../../recoil/market";
 
 type GraphData = {
   max_price: number
@@ -32,15 +32,14 @@ const toAverage = function(data: SellBayState[]): GraphData[] {
 
 let barChart: BarChartSellBay;
 
-function SellBayDaily() {
+function SellBayHourly() {
   const reference = useRef(null);
-  const marketData = useRecoilValue(fetchSellBay);
+  const marketData = useRecoilValue(fetchSellBayForDay);
 
   useEffect(() => {
     if (marketData && marketData.length) {
       barChart = new BarChartSellBay(reference.current);
       const avg = toAverage(marketData);
-      console.log("avg", avg);
       barChart.initialize(avg);
     }
     return () => {
@@ -59,4 +58,4 @@ function SellBayDaily() {
   );
 }
 
-export default SellBayDaily;
+export default SellBayHourly;

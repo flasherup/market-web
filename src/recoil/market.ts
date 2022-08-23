@@ -46,6 +46,26 @@ export const fetchSellBay = selector({
     },
 });
 
+export const marketSelectedDay = atom({
+    key: "marketSelectedDay",
+    default: new Date()
+})
+
+export const fetchSellBayForDay = selector({
+    key: "fetchSellBayForDay",
+    get: async ({get}) => {
+        const start = get(marketSelectedDay);
+        const end = new Date(start); end.setDate(end.getDate()+1);
+        const url = getSellBayUrl(start, end, "hour")
+        try {
+            const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+});
+
 const getSellBayUrl = function(start: Date, end: Date, breakdown: string): string {
     const s = dateToString(start);
     const e = dateToString(end);
