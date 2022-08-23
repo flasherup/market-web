@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap"
-import axios from "axios";
 import {useRecoilValue} from 'recoil';
 import BarChartSellBay from "./d3/BarChartSellBay";
 import {SellBayState, fetchSellBay} from "../recoil/market";
@@ -33,7 +32,7 @@ const toAverage = function(data: SellBayState[]): GraphData[] {
 
 let barChart: BarChartSellBay;
 
-function SellBay() {
+function SellBayDaily() {
   const reference = useRef(null);
   const marketData = useRecoilValue(fetchSellBay);
 
@@ -60,4 +59,4 @@ function SellBay() {
   );
 }
 
-export default SellBay;
+export default SellBayDaily;

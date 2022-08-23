@@ -1,0 +1,15 @@
+.prices {
+    background-color:rgb(229, 229, 229)
+}
+.prices .max-price {
+    fill: none;
+    stroke: rgb(180, 147, 70);
+    stroke-width: 1.5;
+}
+
+.prices .min-price {
+    fill: none;
+    stroke: rgb(120, 70, 180);
+    stroke-width: 1.5;
+    
+}
