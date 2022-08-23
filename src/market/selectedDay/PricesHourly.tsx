@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import {useRecoilValue} from 'recoil';
-import LineChartPrices from "./d3/LineChartPrices";
-import {SellBayState, fetchSellBay} from "../recoil/market";
+import LineChartPrices from "../d3/LineChartPrices";
+import {SellBayState, fetchSellBayForDay} from "../../recoil/market";
 
 type GraphData = {
   max_price: number
@@ -29,9 +29,9 @@ const toGraphData = function(data: SellBayState[]): GraphData[] {
 
 let barChart: LineChartPrices;
 
-function PricesDaily() {
+function PricesHourly() {
   const reference = useRef(null);
-  const marketData = useRecoilValue(fetchSellBay);
+  const marketData = useRecoilValue(fetchSellBayForDay);
 
   useEffect(() => {
     if (marketData && marketData.length) {
@@ -55,4 +55,4 @@ function PricesDaily() {
   );
 }
 
-export default PricesDaily;
+export default PricesHourly;

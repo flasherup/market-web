@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Row, Col } from "react-bootstrap"
-import {useRecoilValue} from 'recoil';
+import React, { useEffect, useRef, useCallback } from "react";
+import { Row, Col } from "react-bootstrap";
+import {useRecoilValue, useRecoilState} from 'recoil';
 import BarChartSellBay from "./d3/BarChartSellBay";
-import {SellBayState, fetchSellBay} from "../recoil/market";
+import {SellBayState, fetchSellBay, marketSelectedDay} from "../recoil/market";
 
 type GraphData = {
   max_price: number
@@ -35,25 +35,40 @@ let barChart: BarChartSellBay;
 function SellBayDaily() {
   const reference = useRef(null);
   const marketData = useRecoilValue(fetchSellBay);
+  const [selected, setSelected] = useRecoilState(marketSelectedDay);
+
+  const selectDay = useCallback((date:Date) => {
+    setSelected(date);
+  }, [selected]);
 
   useEffect(() => {
-    if (marketData && marketData.length) {
-      barChart = new BarChartSellBay(reference.current);
-      const avg = toAverage(marketData);
-      console.log("avg", avg);
-      barChart.initialize(avg);
-    }
+    barChart = new BarChartSellBay(reference.current, (date:Date)=>selectDay(date));
+    barChart.initialize();
+    
     return () => {
       if (barChart) {
         barChart.dispose();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    if (marketData && marketData.length) {
+      const avg = toAverage(marketData);
+      barChart.update(avg);
+    }
   }, [marketData]);
+
+  useEffect(() => {
+    if (selected) {
+      barChart.setSelected(selected)
+    }
+  }, [selected]);
 
   return (
     <Row>
       <Col>
-        <svg ref={reference} width="100%" height="300" />
+        <svg ref={reference} width="100%" height="150" />
       </Col>
     </Row>
   );

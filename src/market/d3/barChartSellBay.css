@@ -16,3 +16,11 @@
 .sell-bay .sum_sell_amount {
     fill: rgb(150, 1, 1);
 }
+
+.sell-bay .selected {
+    fill: rgba(0, 0, 0, 0.5);
+}
+
+.sell-bay .unselected {
+    fill: rgba(0, 0, 0, 0);
+}

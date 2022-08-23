@@ -7,8 +7,6 @@ export default class LineChartPrices {
     }
 
     initialize(data) {
-        console.log(data)
-
         const margin = { left: 50, right: 10, top: 10, bottom: 30 }
 
         const svg = d3.select(this.parent);
@@ -38,8 +36,10 @@ export default class LineChartPrices {
                 return f(d);
             }).ticks(10));
 
+        const gorizontalShift = xScale.bandwidth()/2;
+
         const minPriceLine = d3.line()
-            .x(function (d) { return xScale(d.start) })
+            .x(function (d) { return xScale(d.start) + gorizontalShift })
             .y(function (d) { return yScale(d.min_price) })
 
         chart.append("path")
@@ -48,7 +48,7 @@ export default class LineChartPrices {
             .attr("d", minPriceLine)
 
         const maxPriceLine = d3.line()
-            .x(function (d) { return xScale(d.start) })
+            .x(function (d) { return xScale(d.start) + gorizontalShift })
             .y(function (d) { return yScale(d.max_price) })
 
         chart.append("path")
