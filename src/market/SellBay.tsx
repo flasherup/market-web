@@ -1,38 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap"
 import axios from "axios";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue
-} from 'recoil';
+import {useRecoilValue} from 'recoil';
 import BarChartSellBay from "./d3/BarChartSellBay";
+import {SellBayState, fetchSellBay} from "../recoil/market";
 
-const url = `https://api.flasherup.com/market/sell-bay?start=2022-08-19&end=2022-08-20&breakdown=hour`;
-const fetchSellBay = selector({
-  key: "sellBaySelector",
-  get: async ({ get }) => {
-    try {
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-});
-
-type DataSrc = {
-  max_price: number
-  min_price: number
-  sum_bay_amount: number
-  sum_sell_amount: number
-  start: string
-  end: string
-}
-
-type DataAvg = {
+type GraphData = {
   max_price: number
   min_price: number
   sum_bay_amount: number
@@ -42,7 +15,7 @@ type DataAvg = {
 }
 
 
-const toAverage = function(data: DataSrc[]): DataAvg[] {
+const toAverage = function(data: SellBayState[]): GraphData[] {
   const maxMaxPrice = Math.max(...data.map(d=>d.max_price))
   const maxMinPrice = Math.max(...data.map(d=>d.min_price))
   const maxSumAmount = Math.max(...data.map(d=>d.sum_bay_amount), ...data.map(d=>d.sum_sell_amount))
@@ -58,8 +31,6 @@ const toAverage = function(data: DataSrc[]): DataAvg[] {
   })
 }
 
-
-
 let barChart: BarChartSellBay;
 
 function SellBay() {
@@ -68,12 +39,16 @@ function SellBay() {
 
   useEffect(() => {
     if (marketData && marketData.length) {
-      //vis = new D3Component(refElement.current, { data, width, height });
       barChart = new BarChartSellBay(reference.current);
       const avg = toAverage(marketData);
       console.log("avg", avg);
       barChart.initialize(avg);
     }
+    return () => {
+      if (barChart) {
+        barChart.dispose();
+      }
+    };
   }, [marketData]);
 
   return (

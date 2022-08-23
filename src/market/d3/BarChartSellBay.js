@@ -48,27 +48,7 @@ export default class BarChartSellBay {
             .attr("y", height/2-rectH/2)*/
 
         const barSpace = 4
-        const barWidth = (xScale.bandwidth() - barSpace * 2) / 4;
-
-        chart.selectAll(".max-price")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("class", "max-price")
-            .attr("width", barWidth)
-            .attr("height", d=>height-yScale(d.max_price))
-            .attr("x", d=> xScale(d.start) + barSpace)
-            .attr("y", d=>yScale(d.max_price))
-
-        chart.selectAll(".min-price")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("class", "min-price")
-            .attr("width", barWidth)
-            .attr("height", d=>height-yScale(d.min_price))
-            .attr("x", d=> xScale(d.start) + barWidth + barSpace)
-            .attr("y", d=>yScale(d.min_price))
+        const barWidth = (xScale.bandwidth() - barSpace * 2) / 2;
 
         chart.selectAll(".sum_bay_amount")
             .data(data)
@@ -77,7 +57,7 @@ export default class BarChartSellBay {
             .attr("class", "sum_bay_amount")
             .attr("width", barWidth)
             .attr("height", d=>height-yScale(d.sum_bay_amount))
-            .attr("x", d=> xScale(d.start) + barWidth * 2 + barSpace)
+            .attr("x", d=> xScale(d.start) + barSpace)
             .attr("y", d=>yScale(d.sum_bay_amount))
 
         chart.selectAll(".sum_sell_amount")
@@ -87,7 +67,11 @@ export default class BarChartSellBay {
             .attr("class", "sum_sell_amount")
             .attr("width", barWidth)
             .attr("height", d=>height-yScale(d.sum_sell_amount))
-            .attr("x", d=> xScale(d.start) + barWidth * 3 + barSpace)
+            .attr("x", d=> xScale(d.start) + barWidth + barSpace)
             .attr("y", d=>yScale(d.sum_sell_amount))
+    }
+
+    dispose() {
+        d3.select(this.parent).selectAll("*").remove();
     }
 }
