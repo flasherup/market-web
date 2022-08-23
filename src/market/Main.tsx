@@ -2,10 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap"
 import axios from "axios";
 import { 
-  RecoilRoot,
-  atom,
   selector,
-  useRecoilState,
   useRecoilValue 
 } from 'recoil';
 import BarChart from "./d3/BarChart";

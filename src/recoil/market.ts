@@ -1,10 +1,6 @@
 import {
-    RecoilRoot,
     atom,
     selector,
-    useRecoilState,
-    useRecoilValue,
-    selectorFamily
 } from 'recoil';
 import axios from "axios";
 
