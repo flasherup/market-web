@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { marketSelectedDay } from "../../recoil/market";
 import PricesHourly from "./PricesHourly";
 import SellBayHourly from "./SellBayHourly";
+import OverboughtHourly from "./OverboughtHourly";
 import {dateToString} from "../../utils/time";
 
 function SelectedDay() {
@@ -24,6 +25,11 @@ function SelectedDay() {
         <Row>
           <Col>
             <PricesHourly />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <OverboughtHourly />
           </Col>
         </Row>
       </Col>
