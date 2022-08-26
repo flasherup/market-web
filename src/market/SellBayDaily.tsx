@@ -43,7 +43,7 @@ function SellBayDaily() {
 
   useEffect(() => {
     barChart = new BarChartSellBay(reference.current, (date:Date)=>selectDay(date));
-    barChart.initialize();
+    barChart.initialize("%m-%d");
     
     return () => {
       if (barChart) {

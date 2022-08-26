@@ -8,7 +8,8 @@ export default class BarChartSellBay {
     this.onSelect = onSelect;
   }
 
-  initialize() {
+  initialize(dateFormat) {
+    this.dateFormat = dateFormat?dateFormat:"%m-%d:%H";
     const margin = { left: 50, right: 10, top: 10, bottom: 30 }
 
     const svg = d3.select(this.parent);
@@ -45,14 +46,15 @@ export default class BarChartSellBay {
       yScale,
       height,
       xAxis,
-      yAxis
+      yAxis,
+      dateFormat
     } = this;
 
 
     xScale.domain(data.map(function (d) { return d.start; }));
     yScale.domain([0, d3.max(data, function (d) { return d.min_price; })]);
 
-    xAxis.call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d:%H")));
+    xAxis.call(d3.axisBottom(xScale).tickFormat(d3.timeFormat(dateFormat)));
 
     yAxis.call(d3.axisLeft(yScale).tickFormat(function (d) {
       return d * 100 + "%";

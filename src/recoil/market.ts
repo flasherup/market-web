@@ -19,7 +19,7 @@ const endpoint = "https://api.flasherup.com";
 
 export const daylyStartDate = atom({
     key: "daylyStartDate",
-    default: new Date("2022-08-01")
+    default: new Date("2022-07-15")
 })
 
 export const daylyEndDate = atom({
